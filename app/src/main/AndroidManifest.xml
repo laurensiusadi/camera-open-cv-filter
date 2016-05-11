@@ -31,13 +31,12 @@
         <activity
             android:name=".LabActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme2" />
+            android:theme="@style/AppTheme2"/>
     </application>
 
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
+    <supports-screens   android:resizeable="true"
+        android:smallScreens="true"
         android:normalScreens="true"
-        android:resizeable="true"
-        android:smallScreens="true" />
+        android:largeScreens="true"
+        android:anyDensity="true" />
 </manifest>

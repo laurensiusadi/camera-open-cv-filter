@@ -1,7 +1,9 @@
+
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.videoio;
+
 
 
 public class Videoio {
@@ -9,8 +11,8 @@ public class Videoio {
     public static final int
             CV_CAP_MSMF = 1400,
             CV_CAP_ANDROID = 1000,
-            CV_CAP_ANDROID_BACK = CV_CAP_ANDROID + 99,
-            CV_CAP_ANDROID_FRONT = CV_CAP_ANDROID + 98,
+            CV_CAP_ANDROID_BACK = CV_CAP_ANDROID+99,
+            CV_CAP_ANDROID_FRONT = CV_CAP_ANDROID+98,
             CV_CAP_XIAPI = 1100,
             CV_CAP_AVFOUNDATION = 1200,
             CV_CAP_GIGANETIX = 1300,
@@ -420,6 +422,8 @@ public class Videoio {
             CAP_PROP_APERTURE = 17008,
             CAP_PROP_EXPOSUREPROGRAM = 17009,
             CAP_PROP_VIEWFINDER = 17010;
+
+
 
 
 }

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_next_curve_filter"
-        android:title="@string/menu_next_curve_filter"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom|withText"
+        android:title="@string/menu_next_curve_filter"/>
     <!--<item
         android:id="@+id/menu_next_mixer_filter"
         app:showAsAction="ifRoom|withText"
@@ -20,6 +20,6 @@
         android:title="@string/menu_other_camera"/>-->
     <item
         android:id="@+id/menu_take_photo"
-        android:title="@string/menu_take_photo"
-        app:showAsAction="always|withText" />
+        app:showAsAction="always|withText"
+        android:title="@string/menu_take_photo"/>
 </menu>

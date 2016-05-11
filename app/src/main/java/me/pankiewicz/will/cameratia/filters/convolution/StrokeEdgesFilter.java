@@ -13,11 +13,11 @@ import me.pankiewicz.will.cameratia.filters.Filter;
 public final class StrokeEdgesFilter implements Filter {
 
     private final Mat mKernel = new MatOfInt(
-            0, 0, 1, 0, 0,
-            0, 1, 2, 1, 0,
+            0, 0,   1, 0, 0,
+            0, 1,   2, 1, 0,
             1, 2, -16, 2, 1,
-            0, 1, 2, 1, 0,
-            0, 0, 1, 0, 0
+            0, 1,   2, 1, 0,
+            0, 0,   1, 0, 0
     );
     private final Mat mEdges = new Mat();
 
@@ -25,6 +25,6 @@ public final class StrokeEdgesFilter implements Filter {
     public void apply(final Mat src, final Mat dst) {
         Imgproc.filter2D(src, mEdges, -1, mKernel);
         Core.bitwise_not(mEdges, mEdges);
-        Core.multiply(src, mEdges, dst, 1.0 / 255.0);
+        Core.multiply(src, mEdges, dst, 1.0/255.0);
     }
 }

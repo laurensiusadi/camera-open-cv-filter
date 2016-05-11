@@ -66,43 +66,57 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     private static final String STATE_CONVOLUTION_FILTER_INDEX = "convolutionFilterIndex";
 
     // An ID for items in the image size submenu
-    private static final int MENU_GROUP_ID_SIZE = 2;
-    Mat mRgba;
-    Mat mRgbaF;
-    Mat mRgbaT;
+    private static final int MENU_GROUP_ID_SIZE=2;
+
     // the filters
     private Filter[] mCurveFilters;
     private Filter[] mMixerFilters;
     private Filter[] mConvolutionFilters;
+
     // The indices of the active filters
     private int mCurveFilterIndex;
     private int mMixerFilterIndex;
     private int mConvolutionFilterIndex;
+
+
     // The index of the active camera
     private int mCameraIndex;
+
     // The index of the active image size
     private int mImageSizeIndex;
+
     // Whether the active camera is front-facing
     // if so the camera view should be mirrored.
     private boolean mIsCameraFrontFacing;
+
     // The number of camera on the device
     private int mNumCameras;
+
     // The camera view
     private CameraBridgeViewBase mCameraView;
+
     // The image sizes supported by the active camera
     private List<Size> mSupportedImageSizes;
+
     // Whether the next camera frame should be saved as a photo
     private boolean mIsPhotoPending;
+
     // A matrix that is used when saving photos
     private Mat mBgr;
+
     // Whether an asynchronous menu action is in progress
     // if so, menu interaction should be disabled
     private boolean mIsMenuLocked;
+
+    Mat mRgba;
+    Mat mRgbaF;
+    Mat mRgbaT;
+
     // the OpenCV loader callback
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(final int status) {
-            switch (status) {
+            switch(status){
                 case LoaderCallbackInterface.SUCCESS:
                     Log.d(TAG, "OpenCV loaded successfully");
                     mCameraView.enableView();
@@ -120,7 +134,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
                             //new RecolorRGVFilter(),
                             //new RecolorCMVFilter()
                     };
-                    mConvolutionFilters = new Filter[]{
+                    mConvolutionFilters = new Filter[] {
                             new NoneFilter(),
                             //new StrokeEdgesFilter()
                     };
@@ -144,13 +158,13 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         final Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null){
             mCameraIndex = savedInstanceState.getInt(STATE_CAMERA_INDEX, 0);
             mImageSizeIndex = savedInstanceState.getInt(STATE_IMAGE_SIZE_INDEX, 0);
             mCurveFilterIndex = savedInstanceState.getInt(STATE_CURVE_FILTER_INDEX, 0);
             mMixerFilterIndex = savedInstanceState.getInt(STATE_MIXER_FILTER_INDEX, 0);
             mConvolutionFilterIndex = savedInstanceState.getInt(STATE_CONVOLUTION_FILTER_INDEX, 0);
-        } else {
+        }else {
             mCameraIndex = 0;
             mImageSizeIndex = 0;
             mCurveFilterIndex = 0;
@@ -159,13 +173,13 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         }
 
         final Camera camera;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD){
             Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
             android.hardware.Camera.getCameraInfo(mCameraIndex, cameraInfo);
             mIsCameraFrontFacing = (cameraInfo.facing == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
             mNumCameras = android.hardware.Camera.getNumberOfCameras();
             camera = Camera.open(mCameraIndex);
-        } else { // pre-gingerbread
+        }else { // pre-gingerbread
             // Assume there  is only 1 camera and its rear-facing
             mIsCameraFrontFacing = false;
             mNumCameras = 1;
@@ -200,7 +214,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
         final ImageView imageViewPopup = (ImageView) findViewById(R.id.settings);
         if (imageViewPopup != null) {
-            imageViewPopup.setOnClickListener(new View.OnClickListener() {
+            imageViewPopup.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
                     doPopup();
@@ -217,10 +231,10 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
                 new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
+                        switch (item.getItemId()){
                             case R.id.popup_one:
                                 RelativeLayout rl1 = (RelativeLayout) findViewById(R.id.grid);
-                                if ((rl1 != null ? rl1.getVisibility() : 0) == View.VISIBLE) {
+                                if((rl1 != null ? rl1.getVisibility() : 0) == View.VISIBLE){
                                     rl1.setVisibility(View.INVISIBLE);
                                     Toast.makeText(CameraActivity.this,
                                             "Grid is Off",
@@ -247,11 +261,14 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         inflater.inflate(R.menu.popup_menu, popupMenu.getMenu());
         //popupMenu.show();
         if (imageViewPopup != null) {
-            imageViewPopup.setOnClickListener(new View.OnClickListener() {
+            imageViewPopup.setOnClickListener(new View.OnClickListener()
+            {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View v)
+                {
                     popupMenu.show();
-                    if (popupMenu.getDragToOpenListener() instanceof ListPopupWindow.ForwardingListener) {
+                    if (popupMenu.getDragToOpenListener() instanceof ListPopupWindow.ForwardingListener)
+                    {
                         ListPopupWindow.ForwardingListener listener = (ListPopupWindow.ForwardingListener) popupMenu.getDragToOpenListener();
                         listener.getPopup().setVerticalOffset(-imageViewPopup.getHeight());
                         listener.getPopup().show();
@@ -261,7 +278,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         }
     }
 
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    public void onSaveInstanceState(Bundle savedInstanceState){
         // Save the current camera index.
         savedInstanceState.putInt(STATE_CAMERA_INDEX, mCameraIndex);
 
@@ -279,8 +296,8 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     // backward-compatible fallbacks.
     @SuppressLint("NewApi")
     @Override
-    public void recreate() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    public void recreate(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
             super.recreate();
         } else {
             finish();
@@ -289,15 +306,15 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     }
 
     @Override
-    public void onPause() {
-        if (mCameraView != null) {
+    public void onPause(){
+        if (mCameraView != null){
             mCameraView.disableView();
         }
         super.onPause();
     }
 
     @Override
-    public void onResume() {
+    public void onResume(){
         super.onResume();
         //mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
         OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, this, mLoaderCallback);
@@ -305,26 +322,26 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     }
 
     @Override
-    public void onDestroy() {
-        if (mCameraView != null) {
+    public void onDestroy(){
+        if (mCameraView != null){
             mCameraView.disableView();
         }
         super.onDestroy();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu){
         getMenuInflater().inflate(R.menu.activity_camera, menu);
 
         //switchAB = (Switch)menu.findItem(R.id.grid_switch)  .getActionView().findViewById(R.id.switchAB);
-        if (mNumCameras < 2) {
+        if (mNumCameras < 2){
             // Remove the option to switch camera, since there is only 1
             // menu.removeItem(R.id.menu_other_camera);
         }
         int numSupportedImageSizes = mSupportedImageSizes.size();
-        if (numSupportedImageSizes > 1) {
+        if (numSupportedImageSizes>1){
             final SubMenu sizeSubMenu = menu.addSubMenu(R.string.menu_image_size);
-            for (int i = 0; i < numSupportedImageSizes; i++) {
+            for (int i = 0; i < numSupportedImageSizes; i ++){
                 final Size size = mSupportedImageSizes.get(i);
                 sizeSubMenu.add(MENU_GROUP_ID_SIZE, i, Menu.NONE, String.format("%dx%d", size.width, size.height));
             }
@@ -335,20 +352,20 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     // Suppress backward incompatibility errors because we provide backward-compatible fallbacks (for recreate).
     @SuppressLint("NewApi")
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mIsMenuLocked) {
+    public boolean onOptionsItemSelected(final MenuItem item){
+        if (mIsMenuLocked){
             return true;
         }
-        if (item.getGroupId() == MENU_GROUP_ID_SIZE) {
+        if (item.getGroupId() == MENU_GROUP_ID_SIZE){
             mImageSizeIndex = item.getItemId();
             recreate();
 
             return true;
         }
-        switch (item.getItemId()) {
+        switch(item.getItemId()){
             case R.id.menu_next_curve_filter:
                 mCurveFilterIndex++;
-                if (mCurveFilterIndex == mCurveFilters.length) {
+                if (mCurveFilterIndex == mCurveFilters.length){
                     mCurveFilterIndex = 0;
                 }
                 return true;
@@ -389,19 +406,19 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     }
 
     @Override
-    public void onCameraViewStarted(final int width, final int height) {
+    public void onCameraViewStarted(final int width, final int height){
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mRgbaF = new Mat(height, width, CvType.CV_8UC4);
         mRgbaT = new Mat(width, width, CvType.CV_8UC4);
     }
 
     @Override
-    public void onCameraViewStopped() {
+    public void onCameraViewStopped(){
 
     }
 
     @Override
-    public Mat onCameraFrame(final CvCameraViewFrame inputFrame) {
+    public Mat onCameraFrame(final CvCameraViewFrame inputFrame){
 
         mRgba = inputFrame.rgba();
         /* Rotate mRgba 90 degrees
@@ -414,12 +431,12 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         mMixerFilters[mMixerFilterIndex].apply(mRgba, mRgba);
         mConvolutionFilters[mConvolutionFilterIndex].apply(mRgba, mRgba);
 
-        if (mIsPhotoPending) {
+        if (mIsPhotoPending){
             mIsPhotoPending = false;
             takePhoto(mRgba);
         }
 
-        if (mIsCameraFrontFacing) {
+        if (mIsCameraFrontFacing){
             Core.flip(mRgba, mRgba, 1);
         }
 
@@ -427,7 +444,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     }
 
 
-    private void takePhoto(final Mat mRgba) {
+    private void takePhoto(final Mat mRgba){
 
         // Determine the path and metadata for the photo.
         final long currentTimeMillis = System.currentTimeMillis();
@@ -444,7 +461,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
         // Ensure that the album directory exists
         File album = new File(albumPath);
-        if (!album.isDirectory() && !album.mkdirs()) {
+        if (!album.isDirectory() && !album.mkdirs()){
             Log.e(TAG, "Failed to create album directory at " + albumPath);
             onTakePhotoFailed();
             return;
@@ -452,7 +469,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
         // Try to create the photo
         Imgproc.cvtColor(mRgba, mBgr, Imgproc.COLOR_RGBA2BGR, 3);
-        if (!Imgcodecs.imwrite(photoPath, mBgr)) {
+        if (!Imgcodecs.imwrite(photoPath, mBgr)){
             //Log.e(TAG, "Failed to save photo to " + photoPath);
             //onTakePhotoFailed();
         }
@@ -461,15 +478,15 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
         // Try to insert the photo into the MediaStore
         Uri uri;
-        try {
-            uri = getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
-        } catch (final Exception e) {
+        try{
+            uri= getContentResolver().insert(Images.Media.EXTERNAL_CONTENT_URI, values);
+        } catch (final Exception e){
             Log.e(TAG, "Failed to insert photo into MediaStore");
             e.printStackTrace();
 
             // Since the insertion failed, delete the photo
             File photo = new File(photoPath);
-            if (!photo.delete()) {
+            if (!photo.delete()){
                 Log.e(TAG, "Failed to delete non-inserted photo");
             }
 
@@ -485,14 +502,14 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
     }
 
-    private void onTakePhotoFailed() {
+    private void onTakePhotoFailed(){
         mIsMenuLocked = false;
 
         // Show an error message.
         final String errorMessage = getString(R.string.photo_error_message);
         runOnUiThread(new Runnable() {
             @Override
-            public void run() {
+            public void run(){
                 Toast.makeText(CameraActivity.this, errorMessage, Toast.LENGTH_LONG).show();
             }
         });

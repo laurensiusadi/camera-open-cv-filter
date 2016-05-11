@@ -1,7 +1,9 @@
+
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.ml;
+
 
 
 public class Ml {
@@ -14,6 +16,8 @@ public class Ml {
             TRAIN_ERROR = 1,
             ROW_SAMPLE = 0,
             COL_SAMPLE = 1;
+
+
 
 
 }

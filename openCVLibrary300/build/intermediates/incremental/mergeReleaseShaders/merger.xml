@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3">
-    <dataSet config="main">
-        <source path="D:\Android\camera2\Cameratia-master\openCVLibrary300\src\main\shaders" />
-    </dataSet>
-    <dataSet config="release">
-        <source path="D:\Android\camera2\Cameratia-master\openCVLibrary300\src\release\shaders" />
-    </dataSet>
-</merger>

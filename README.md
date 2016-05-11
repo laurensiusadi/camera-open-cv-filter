@@ -1,1 +1,0 @@
-# camera-open-cv-filter

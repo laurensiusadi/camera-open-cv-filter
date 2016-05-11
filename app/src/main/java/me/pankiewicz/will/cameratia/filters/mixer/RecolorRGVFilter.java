@@ -3,6 +3,7 @@ package me.pankiewicz.will.cameratia.filters.mixer;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import me.pankiewicz.will.cameratia.filters.Filter;

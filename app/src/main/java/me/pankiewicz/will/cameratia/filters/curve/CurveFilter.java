@@ -1,6 +1,8 @@
 package me.pankiewicz.will.cameratia.filters.curve;
 
 import org.apache.commons.math3.analysis.UnivariateFunction;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfInt;
 import org.apache.commons.math3.analysis.interpolation.LinearInterpolator;
 import org.apache.commons.math3.analysis.interpolation.SplineInterpolator;
 import org.apache.commons.math3.analysis.interpolation.UnivariateInterpolator;
